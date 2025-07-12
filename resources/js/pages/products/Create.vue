@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { useToast } from 'vue-toastification';
 import AppLayout from '@/layouts/AppLayout.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -10,6 +11,9 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/products/create',
     },
 ];
+
+const page = usePage();
+const toast = useToast();
 
 const  form = useForm({
     name: '',
@@ -22,6 +26,7 @@ const handleSubmit = () => {
     form.post(route('products.store'), {
         onSuccess: () => {
             form.reset();
+            toast.success('Product created successfully!');
         },
         onError: (errors) => {
             console.error(errors);

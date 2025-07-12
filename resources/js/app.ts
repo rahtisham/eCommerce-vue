@@ -1,5 +1,7 @@
 import '../css/app.css';
 
+import Toast, { POSITION } from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
@@ -16,6 +18,11 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(Toast, {
+                position: POSITION.TOP_RIGHT,
+                timeout: 3000,
+                closeOnClick: true,
+            })
             .mount(el);
     },
     progress: {

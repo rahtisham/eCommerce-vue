@@ -18,5 +18,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/products/store', [ProductController::class, 'store'])->name('products.store');
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
