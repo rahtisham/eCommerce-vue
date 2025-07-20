@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,6 +17,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products/store', [ProductController::class, 'store'])->name('products.store');
+    Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::put('products/{product}/update', [ProductController::class, 'update'])->name('products.update');
 });
 
 require __DIR__ . '/settings.php';

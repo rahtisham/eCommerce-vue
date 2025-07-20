@@ -12,7 +12,8 @@ class ProductController extends Controller
 
     public function index()
     {
-        return Inertia::render('products/Index', []);
+        $products = Product::all();
+        return Inertia::render('products/Index', ['products' => $products]);
     }
 
     public function create()
@@ -22,7 +23,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
 
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -32,6 +32,18 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->route('products')->with('message', 'Product created successfully!');
+        return redirect()->route('products.create')->with('message', 'Product created successfully!');
+    }
+
+    public function edit(Product $product)
+    {
+        return Inertia::render('products/edit', ['product' => $product]);
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $product->update($request->all());
+
+        return redirect()->back()->with('success', 'Product has been Updated successfully!');
     }
 }
